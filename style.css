@@ -1,19 +1,20 @@
-/* logIn Page */
+/* logIn Page index.html*/
 /* navbar */
 body {
   max-width: 1920px;
   margin: 0 auto;
-  
+  color: #3E424A;
+  font-family: 'Poppins', sans-serif;
 }
-nav-main {
+nav {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
     height: 80px;
     padding: 0 100px;
 }
-.container
 #logo {
     display: flex;
     align-items: center;
@@ -21,6 +22,7 @@ nav-main {
 #logIn {
     display: flex;
     align-items: center;
+
 }
 #mainLogo {
     padding: 15px;
@@ -124,10 +126,7 @@ align-items: center;
 
 
 
-
-
-
-
+/* main page */
 
 
 
@@ -142,7 +141,7 @@ align-items: center;
   align-items: center;
   max-width: 1720px;
   height: 63px;
-  margin: 0 auto;
+  margin: 72px auto;
 }
 
 /* products title */
@@ -151,7 +150,7 @@ align-items: center;
   font-size: 42px;
   font-weight: 600;
   color: #3E424A; 
-  margin: 0;
+  margin-left: 15px;
 }
 
 /* right-side controls */
@@ -167,6 +166,7 @@ align-items: center;
   font-size: 12px;
   font-weight: 400;
   color: #3E424A;
+  margin: 25px;
 }
 
 /* divider line */
@@ -183,7 +183,7 @@ align-items: center;
 #btn-filter {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -191,6 +191,7 @@ align-items: center;
   background: none;
   border: none;
   cursor: pointer;
+  margin: 25px;
 }
 
 /* sort */
@@ -204,5 +205,142 @@ align-items: center;
   color: #3E424A;
   cursor: pointer;
 }
+.full-containers {
+    display: flex;
+    margin-top: 10px;
+    padding: 0 100px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+ .product-card {
+  height: 614px;
+  width: 400px;  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+ }
+ 
+#footer {
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically inside footer */
+}
 
+#pagination {
+  display: flex;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+/* buttons */
+.page-btn {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #3E424A;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+  background: #f5f5f5;
+}
+
+.page-btn.active {
+  background: #FF3C00;  /* orange highlight */
+  color: #fff;
+  font-weight: 600;
+  border-color: #FF3C00;
+}
+
+.dots {
+  color: #3E424A;
+  font-size: 14px;
+  padding: 6px 10px;
+}
+
+#filter-panel {
+  position: absolute;
+  top: 220px; /* adjust based on filter button */
+  right: 200px; 
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 400px;
+  z-index: 10;
+  height: 170px;
+}
+
+/* make inputs side by side */
+.filter-inputs {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.filter-inputs input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#apply-filter {
+  padding: 10px;
+  background: #FF3C00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 300px;
+  width: 100px;
+}
+
+#sort {
+  position: relative; /* important so dropdown anchors to this */
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+#sort-panel {
+  position: absolute;
+  top: 100%;    /* below the "Sort by" button */
+  right: 0;     /* align to right side */
+  border: 1px solid #E1DFE1;
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 220px;
+  z-index: 100;
+  margin-top: 10px;
+}
+
+.sort-option {
+  background: none;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  text-align: left;
+  padding: 4px 0;
+  cursor: pointer;
+  color: #3E424A;
+}
+
+.sort-option:hover {
+  color: #FF3C00;
+}
 

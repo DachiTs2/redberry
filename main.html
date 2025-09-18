@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav-main>
+    <nav class="main">
             <div id="logo">
         <img id="mainLogo" src="assets/Vector.svg" alt="Brand Logo">
         <span>RedSeam Clothing</span>
@@ -19,21 +19,79 @@
         <img id="mainLogo" src="assets/Union.svg" alt="Log In">
         <span>Log In</span>        
             </div>
-    </nav-main>
+    </nav>
    <nav id="nav-secondary">
   <h2 id="products-title">Products</h2>
 
   <div id="products-controls">
     <span id="results-info">Showing 1–10 of 100 results</span>
+     <div id="divider"></div>
 
     <button id="btn-filter">
       <img src="assets/adjustments-horizontal.svg" alt="">
       Filter
     </button>
+      
+   
+
+<!-- filter panel (hidden by default) -->
+<div id="filter-panel" hidden>
+  <h4>Select price</h4>
+
+  <div class="filter-inputs">
+    <input type="number" id="price-from" placeholder="From *">
+    <input type="number" id="price-to" placeholder="To *">
+  </div>
+
+  <button id="apply-filter">Apply</button>
+</div>
 
     <div id="sort">
       <span id="sort-label">Sort by</span>
       <img src="assets/chevron-down.svg" alt="">
+        <div id="sort-panel" hidden>
+    <h4>Sort by</h4>
+    <button class="sort-option">New products first</button>
+    <button class="sort-option">Price, low to high</button>
+    <button class="sort-option">Price, high to low</button>
+  </div>
+</div>
     </div>
   </div>
 </nav>
+<div class="full-containers">
+  <div class="product-card">
+    <img class="product-img" src="assets/Rectangle 1.png" alt="">
+    <span class="product-name">Kids' Curved Hilfiger graphic T-shirt</span>
+    <span class="product-price">25$</span>
+  </div>
+  <div class="product-card">
+    <img class="product-img" src="assets/Rectangle 1.png" alt="">
+    <span class="product-name">Kids' Curved Hilfiger graphic T-shirt</span>
+    <span class="product-price">25$</span>
+  </div>
+  <div class="product-card">
+    <img class="product-img" src="assets/Rectangle 1.png" alt="">
+    <span class="product-name">Kids' Curved Hilfiger graphic T-shirt</span>
+    <span class="product-price">25$</span>
+  </div>
+  <div class="product-card">
+    <img class="product-img" src="assets/Rectangle 1.png" alt="">
+    <span class="product-name">Kids' Curved Hilfiger graphic T-shirt</span>
+    <span class="product-price">25$</span>
+  </div>
+</div>
+<footer id="footer">
+  <div id="pagination">
+    <button class="page-btn prev">&lt;</button>
+    <button class="page-btn active">1</button>
+    <button class="page-btn">2</button>
+    <span class="dots">...</span>
+    <button class="page-btn">9</button>
+    <button class="page-btn">10</button>
+    <button class="page-btn next">&gt;</button>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

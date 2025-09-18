@@ -1,0 +1,208 @@
+/* logIn Page */
+/* navbar */
+body {
+  max-width: 1920px;
+  margin: 0 auto;
+  
+}
+nav-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    height: 80px;
+    padding: 0 100px;
+}
+.container
+#logo {
+    display: flex;
+    align-items: center;
+}
+#logIn {
+    display: flex;
+    align-items: center;
+}
+#mainLogo {
+    padding: 15px;
+}
+#login-page {
+display: flex;
+align-items: center;
+}
+#login-container {
+  margin-left: 173px;
+}
+#mainPhoto {
+  height: 100%;
+  
+}
+
+#login-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 48px;
+  color: #000;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  
+  width: 100%;
+}
+
+.input-group {
+  position: relative;
+  width: 504px;
+  left: -18px;
+}
+
+#login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+.error {
+  color: #d04444; /* red */
+  font-size: 13px;
+  margin-top: 6px;
+}
+[hidden] { display: none !important; }
+
+/* eye icon inside password field */
+#togglePassword {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #888;
+}
+
+#btn-login {
+  margin-top: 46px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background-color: #FF3C00; /* bright orange */
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 534px;
+}
+
+#btn-login:hover {
+  background-color: #e23600;
+}
+
+#register-text {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#register-link {
+  color: #FF3C00;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#register-link:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* nav2(main) */
+
+/* container */
+#nav-secondary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1720px;
+  height: 63px;
+  margin: 0 auto;
+}
+
+/* products title */
+#products-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: #3E424A; 
+  margin: 0;
+}
+
+/* right-side controls */
+#products-controls {
+  display: flex;
+  align-items: center;
+  
+}
+
+/* results info */
+#results-info {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #3E424A;
+}
+
+/* divider line */
+#divider {
+    display: inline-block;
+  width: 1px;
+  height: 24px;
+  background-color: #E1DFE1;
+  border-left: 1px solid #E1DFE1;
+  transform: rotate(0deg); /* already vertical */
+}
+
+/* filter button */
+#btn-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3E424A;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* sort */
+#sort {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3E424A;
+  cursor: pointer;
+}
+
+

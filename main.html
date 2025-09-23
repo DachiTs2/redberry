@@ -13,12 +13,15 @@
     <nav class="main">
             <div id="logo">
         <img id="mainLogo" src="assets/Vector.svg" alt="Brand Logo">
-        <span>RedSeam Clothing</span>
+        <span id="brand-name">RedSeam Clothing</span>
             </div>  
-            <div id="logIn">
-        <img id="mainLogo" src="assets/Union.svg" alt="Log In">
-        <span>Log In</span>        
-            </div>
+              <div id="nav-right">
+  <button class="icon-btn">
+    <img src="assets/shopping-cart.svg" alt="Cart">
+  </button>
+
+  
+</div>
     </nav>
    <nav id="nav-secondary">
   <h2 id="products-title">Products</h2>
@@ -34,7 +37,6 @@
       
    
 
-<!-- filter panel (hidden by default) -->
 <div id="filter-panel" hidden>
   <h4>Select price</h4>
 
@@ -47,13 +49,13 @@
 </div>
 
     <div id="sort">
-      <span id="sort-label">Sort by</span>
-      <img src="assets/chevron-down.svg" alt="">
-        <div id="sort-panel" hidden>
+  <span id="sort-label">Sort by</span>
+  <img src="assets/chevron-down.svg" alt="">
+  <div id="sort-panel" hidden>
     <h4>Sort by</h4>
-    <button class="sort-option">New products first</button>
-    <button class="sort-option">Price, low to high</button>
-    <button class="sort-option">Price, high to low</button>
+    <button class="sort-option" data-sort="created_at" data-order="desc">New products first</button>
+    <button class="sort-option" data-sort="price" data-order="asc">Price, low to high</button>
+    <button class="sort-option" data-sort="price" data-order="desc">Price, high to low</button>
   </div>
 </div>
     </div>

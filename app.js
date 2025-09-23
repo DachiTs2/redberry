@@ -1,147 +1,94 @@
 
-const filterBtn = document.getElementById("btn-filter");
-const filterPanel = document.getElementById("filter-panel");
-const sortBtn = document.getElementById("sort");
-const sortPanel = document.getElementById("sort-panel");
+document.addEventListener("DOMContentLoaded", () => {
+  const filterBtn = document.getElementById("btn-filter");
+  const filterPanel = document.getElementById("filter-panel");
+  const sortBtn = document.getElementById("sort");
+  const sortPanel = document.getElementById("sort-panel");
 
-//  filter on main page
-if (filterBtn && filterPanel) {
-  filterBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    filterPanel.hidden = !filterPanel.hidden;
-    if (sortPanel) sortPanel.hidden = true;
-  });
-}
+  // --- Filter Panel ---
+  if (filterBtn && filterPanel) {
+    filterBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      filterPanel.hidden = !filterPanel.hidden;
+      if (sortPanel) sortPanel.hidden = true;
+    });
+  }
 
-// sort on main page 
-if (sortBtn && sortPanel) {
-  sortBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    sortPanel.hidden = !sortPanel.hidden;
-    if (filterPanel) filterPanel.hidden = true;
-  });
-}
+  // --- Sort Panel ---
+  if (sortBtn && sortPanel) {
+    sortBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sortPanel.hidden = !sortPanel.hidden;
+      if (filterPanel) filterPanel.hidden = true;
+    });
+  }
 
-// closing 
-if (filterPanel || sortPanel) {
+  // Prevent closing when clicking inside
+  if (filterPanel) filterPanel.addEventListener("click", (e) => e.stopPropagation());
+  if (sortPanel) sortPanel.addEventListener("click", (e) => e.stopPropagation());
+
+  // Close when clicking outside
   document.addEventListener("click", () => {
     if (filterPanel) filterPanel.hidden = true;
     if (sortPanel) sortPanel.hidden = true;
   });
-}
 
-//showing passwords
-function togglePassword(inputId, iconId) {
-  const input = document.getElementById(inputId);
-  const icon = document.getElementById(iconId);
+  // --- Password Toggle ---
+  function togglePassword(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
 
-  icon.addEventListener("click", () => {
-    input.type = input.type === "password" ? "text" : "password"; 
-  });
-}
+    icon.addEventListener("click", () => {
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+      icon.src = isPassword ? "assets/eye-off.png" : "assets/eye.png";
+    });
+  }
 
-if (document.getElementById("password") && document.getElementById("togglePassword1")) {
   togglePassword("password", "togglePassword1");
-}
+  togglePassword("password1", "togglePass1");    
+  togglePassword("password2", "togglePass2");    
 
-if (document.getElementById("password1") && document.getElementById("togglePass1")) {
-  togglePassword("password1", "togglePass1");
-}
+  // --- Avatar Upload ---
+  const avatar = document.getElementById("avatar");
+  const avatarInput = document.getElementById("avatarInput");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const removeBtn = document.getElementById("removeBtn");
 
-if (document.getElementById("password2") && document.getElementById("togglePass2")) {
-  togglePassword("password2", "togglePass2");
-}
-const avatar = document.getElementById("avatar");
-const avatarInput = document.getElementById("avatarInput");
-const uploadBtn = document.getElementById("uploadBtn");
-const removeBtn = document.getElementById("removeBtn");
+  if (avatar) avatar.style.display = "none";
 
-// start hidden
-if (avatar) {
-  avatar.style.display = "none";
-}
+  if (uploadBtn && avatarInput && avatar) {
+    uploadBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      avatarInput.value = "";
+      avatarInput.click();
+    });
 
-// Upload new photo
-if (uploadBtn && avatarInput && avatar) {
-  uploadBtn.addEventListener("click", (e) => {
-    e.preventDefault(); 
-    avatarInput.value = ""; 
-    avatarInput.click();  
-  });
+    avatarInput.addEventListener("change", () => {
+      const file = avatarInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          avatar.src = e.target.result;
+          avatar.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
 
-  avatarInput.addEventListener("change", () => {
-    const file = avatarInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        avatar.src = e.target.result;
-        avatar.style.display = "block"; 
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-}
-
-// Remove photo
-if (removeBtn && avatar && avatarInput) {
-  removeBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    avatar.src = "";
-    avatar.style.display = "none"; 
-    avatarInput.value = ""; 
-  });
-}
-
-// login validation
-const emailInput = document.getElementById("username");
-const pwInput = document.getElementById("password");
-const emailError = document.getElementById("email-error");
-const pwError = document.getElementById("pw-error");
-const loginForm = document.getElementById("login-form");
-
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault(); 
-
-    let valid = true;
-
-    const emailValue = emailInput.value.trim();
-    if (emailValue.length < 3 || !emailValue.includes("@")) {
-      emailError.hidden = false;
-      valid = false;
-    } else {
-      emailError.hidden = true;
-    }
-
-    
-    const pwValue = pwInput.value.trim();
-    if (pwValue.length < 3) {
-      pwError.hidden = false;
-      valid = false;
-    } else {
-      pwError.hidden = true;
-    }
-
-    if (valid) {
-      console.log("Form is valid, submitting...");
-      loginForm.submit(); 
-    }
-  });
-}
-// registration validation
-const regForm = document.getElementById("registration-form");
-
-const username = document.getElementById("reg-username");
-const email = document.getElementById("reg-email");
-const password = document.getElementById("password1");
-const confirmPw = document.getElementById("password2");
-
-const usernameError = document.getElementById("username-error");
-const confirmError = document.getElementById("confirm-error");
+  if (removeBtn && avatar && avatarInput) {
+    removeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      avatar.src = "assets/avatar.png"; 
+      avatar.style.display = "none";
+      avatarInput.value = "";
+    });
+  }
+});
 
 
-const password1 = document.getElementById("password1");
-const password2 = document.getElementById("password2");
 
 
 

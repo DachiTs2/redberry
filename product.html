@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootcamp project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+            <div id="logo">
+        <img id="mainLogo" src="assets/Vector.svg" alt="Brand Logo">
+        <span id="brand-name">RedSeam Clothing</span>
+            </div>  
+              <div id="nav-right">
+  <button class="icon-btn">
+    <img src="assets/shopping-cart.svg" alt="Cart">
+  </button>
+</div>
+</nav>
+<p class="listing">Listing / Product</p>
+<main class="product-page">
+  <!-- Left: Image Gallery -->
+  <div class="gallery">
+    <div class="thumbnails">
+      <!-- Small preview images -->
+      <img src="assets/thumb1.jpg" alt="">
+      <img src="assets/thumb2.jpg" alt="">
+      <img src="assets/thumb3.jpg" alt="">
+    </div>
+    <div class="main-image">
+      <img src="assets/main.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- Right: Product Info -->
+  <div class="product-info">
+    <h1>Kids' Curved Hilfiger Graphic T-Shirt</h1>
+    <p class="price">$25</p>
+
+    <div class="color-picker">
+      <span>Color: Baby Pink</span>
+      <!-- circles -->
+      <button class="color-circle"></button>
+      <button class="color-circle"></button>
+    </div>
+
+    <div class="size-picker">
+      <span>Size:</span>
+      <!-- sizes -->
+      <button class="size-btn">XS</button>
+      <button class="size-btn">S</button>
+      <button class="size-btn">M</button>
+    </div>
+
+    <div class="quantity">
+      <span>Quantity:</span>
+      <select>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+    </div>
+
+    <button class="add-to-cart">Add to cart</button>
+
+    <section class="details">
+      <h3>Details</h3>
+      <p><strong>Brand:</strong> Tommy Hilfiger</p>
+      <p>This product contains regenerative cotton ...</p>
+    </section>
+  </div>
+</main>
+</body>
+
+</html>

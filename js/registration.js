@@ -1,7 +1,52 @@
-// js/registration.js
-import { api, saveToken } from "./api.js";
+import { api, saveToken, saveUser } from "./api.js";
 
 const form = document.getElementById("registration-form");
+
+const avatarImg = document.getElementById("avatar");
+const avatarInput = document.getElementById("avatarInput");
+const uploadBtn = document.getElementById("uploadBtn");
+const removeBtn = document.getElementById("removeBtn");
+
+// Password toggle setup
+function setupPasswordToggle(inputId, toggleId) {
+  const input = document.getElementById(inputId);
+  const toggle = document.getElementById(toggleId);
+
+  if (input && toggle) {
+    toggle.addEventListener("click", () => {
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+      toggle.src = isPassword ? "assets/eye-off.png" : "assets/eye.png";
+    });
+  }
+}
+setupPasswordToggle("password1", "togglePass1");
+setupPasswordToggle("password2", "togglePass2");
+
+// Avatar upload preview
+if (uploadBtn && avatarInput && avatarImg) {
+  uploadBtn.addEventListener("click", () => avatarInput.click());
+
+  avatarInput.addEventListener("change", () => {
+    const file = avatarInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        avatarImg.src = e.target.result;
+        avatarImg.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+if (removeBtn && avatarImg && avatarInput) {
+  removeBtn.addEventListener("click", () => {
+    avatarImg.src = "assets/avatar.png";
+    avatarImg.style.display = "none";
+    avatarInput.value = ""; 
+  });
+}
 
 if (form) {
   form.addEventListener("submit", async (e) => {
@@ -12,7 +57,7 @@ if (form) {
     const emailEl = document.getElementById("reg-email");
     const password1El = document.getElementById("password1");
     const password2El = document.getElementById("password2");
-    const avatarFile = document.getElementById("avatarInput").files[0] || null;
+    const avatarFile = avatarInput.files[0] || null;
 
     const usernameError = document.getElementById("username-error");
     const emailError = document.getElementById("email-error");
@@ -43,10 +88,9 @@ if (form) {
       valid = false;
     } else confirmError.hidden = true;
 
-    // Stop if validation failed
     if (!valid) return;
 
-    // --- Build FormData for API ---
+    // --- Build FormData ---
     const fd = new FormData();
     fd.append("username", usernameEl.value.trim());
     fd.append("email", emailEl.value.trim());
@@ -60,9 +104,10 @@ if (form) {
       body: fd
     });
 
-    if (ok) {
-      if (data?.token) saveToken(data.token);
-      window.location.href = "index.html"; // or products.html
+    if (ok && data?.token) {
+      saveToken(data.token);
+      saveUser(data.user);
+      window.location.href = "main.html";
       return;
     }
 

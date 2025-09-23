@@ -13,14 +13,20 @@ const storedUser = localStorage.getItem("user");
 if (storedUser && navRight) {
   const user = JSON.parse(storedUser);
 
-  const userMenu = document.createElement("div");
-  userMenu.id = "user-menu";
-  userMenu.innerHTML = `
-    <img id="user-avatar" src="${user.profile_photo || "assets/avatar.png"}" 
-         alt="User Avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
-    <img id="dropdown-icon" src="assets/chevron-down.svg" alt="Expand">
-  `;
-  navRight.appendChild(userMenu);
+ const userMenu = document.createElement("div");
+userMenu.id = "user-menu";
+
+let avatarHtml = "";
+if (user.profile_photo) {
+  avatarHtml = `<img id="user-avatar" src="${user.profile_photo}" 
+      alt="User Avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">`;
+}
+
+userMenu.innerHTML = `
+  ${avatarHtml}
+  <img id="dropdown-icon" src="assets/chevron-down.svg" alt="Expand">
+`;
+navRight.appendChild(userMenu);
 
   // Dropdown menu
   const dropdown = document.createElement("div");
@@ -85,20 +91,25 @@ async function loadProducts(page = 1, filters = {}) {
   const products = data.data;
   productsContainer.innerHTML = products.map(p => `
     <div class="product-card" data-id="${p.id}">
-      <img src="${p.cover_image}" alt="${p.name}" 
-           style="width:100%; height:400px; object-fit:cover; border-radius:8px;">
+      <img src="${p.cover_image}" alt="${p.name}">
       <h3>${p.name}</h3>
       <p>$${p.price}</p>
     </div>
   `).join("");
 
+
   //  Click → product page
-  productsContainer.querySelectorAll(".product-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const productId = card.dataset.id;
+productsContainer.querySelectorAll(".product-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const productId = card.dataset.id;
+
+    // add a short delay so the animation is visible
+    setTimeout(() => {
       window.location.href = `product.html?id=${productId}`;
-    });
+    }, 150); // 150ms matches the CSS transition
   });
+});
+
 
   renderPagination(data.meta, filters);
 }

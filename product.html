@@ -21,40 +21,37 @@
   </button>
 </div>
 </nav>
-<p class="listing">Listing / Product</p>
+
 <main class="product-page">
-  <!-- Left: Image Gallery -->
+    <p class="listing">Listing / Product</p>
+  <!-- LEFT: Gallery -->
   <div class="gallery">
     <div class="thumbnails">
-      <!-- Small preview images -->
-      <img src="assets/thumb1.jpg" alt="">
-      <img src="assets/thumb2.jpg" alt="">
-      <img src="assets/thumb3.jpg" alt="">
+      <img src="" alt="">
+      <img src="" alt="">
+      <img src="" alt="">
+      <img src="" alt="">
+      <img src="" alt="">
     </div>
     <div class="main-image">
-      <img src="assets/main.jpg" alt="">
+      <img src="" alt="">
     </div>
   </div>
 
-  <!-- Right: Product Info -->
+  <!-- RIGHT: Info -->
   <div class="product-info">
-    <h1>Kids' Curved Hilfiger Graphic T-Shirt</h1>
-    <p class="price">$25</p>
+    <h1></h1>
+    <p class="price"></p>
 
-    <div class="color-picker">
-      <span>Color: Baby Pink</span>
-      <!-- circles -->
-      <button class="color-circle"></button>
-      <button class="color-circle"></button>
-    </div>
+<div class="color-picker">
+  <span id="color-label">Color:</span>
+  <div id="color-options"></div>
+</div>
 
-    <div class="size-picker">
-      <span>Size:</span>
-      <!-- sizes -->
-      <button class="size-btn">XS</button>
-      <button class="size-btn">S</button>
-      <button class="size-btn">M</button>
-    </div>
+  <div class="size-picker">
+  <span id="size-label">Size:</span>
+  <div id="size-options"></div>
+</div>
 
     <div class="quantity">
       <span>Quantity:</span>
@@ -65,15 +62,24 @@
       </select>
     </div>
 
-    <button class="add-to-cart">Add to cart</button>
-
-    <section class="details">
-      <h3>Details</h3>
-      <p><strong>Brand:</strong> Tommy Hilfiger</p>
-      <p>This product contains regenerative cotton ...</p>
-    </section>
+    <button class="add-to-cart">
+  <img src="assets/shopping-cart.svg" alt="Cart Icon">
+  Add to cart
+</button>
+<div class="details-row">
+  <div class="details-left">
+    <h3>Details</h3>
+    <p><strong>Brand:</strong> <span id="brand-text"></span></p>
+    <p id="product-description"></p> <!-- JS will fill this -->
+  </div>
+  <div class="details-logo">
+    <img src="" alt="Brand Logo" id="brand-logo">
+  </div>
+</div>
   </div>
 </main>
+<script type="module" src="js/api.js"></script>
+<script type="module" src="js/product.js"></script>
 </body>
 
 </html>

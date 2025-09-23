@@ -159,5 +159,6 @@ document.querySelectorAll(".sort-option").forEach(btn => {
     if (sortPanel) sortPanel.hidden = true;
   });
 });
+
 // ---------- Init ----------
 loadProducts();

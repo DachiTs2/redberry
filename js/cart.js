@@ -27,13 +27,13 @@ closeBtn.addEventListener("click", closeCart);
 backdrop.addEventListener("click", closeCart);
 
 // ------------------ ADD TO CART ------------------
-window.addToCart = function addToCart(product, selectedColor, selectedSize, quantity = 1) {
+window.addToCart = function addToCart(product, selectedColor, selectedSize, quantity = 1, imageToUse) {
   cart.push({
     id: product.id,
     name: product.name,
     price: Number(product.price) || 0,
-    cover_image: product.cover_image,
-    color: selectedColor || "Not selected",
+    cover_image: imageToUse || product.cover_image, 
+    color: selectedColor || "Not selected",         
     size: selectedSize || "Not selected",
     qty: quantity
   });
@@ -86,24 +86,43 @@ function render() {
       const row = document.createElement("div");
       row.className = "rs-item";
       row.innerHTML = `
-        <img src="${it.cover_image}" alt="">
-        <div>
-          <div class="rs-item__title">${it.name}</div>
-          <div class="rs-item__meta">
-            Color: ${it.color}<br>
-            Size: ${it.size}<br>
-            Quantity: ${it.qty}
-          </div>
-        </div>
-        <div class="rs-item__right">
-          <div class="rs-item__price">${money(it.price)}</div>
-          <button class="rs-remove" data-i="${i}">Remove</button>
-        </div>
-      `;
+  <img src="${it.cover_image}" alt="">
+  <div class="rs-item__info">
+    <div class="rs-item__title">${it.name}</div>
+    <div class="rs-item__meta">
+      Color: ${it.color}<br>
+      Size: ${it.size}
+    </div>
+    <div class="rs-item__qty-row">
+  <div class="rs-item__qty-row">
+  <div class="rs-item__qty">
+    <button class="rs-qty" data-action="dec" data-i="${i}">−</button>
+    <span>${it.qty}</span>
+    <button class="rs-qty" data-action="inc" data-i="${i}">+</button>
+  </div>
+  <button class="rs-remove" data-i="${i}">Remove</button>
+</div>
+  
+</div>
+  </div>
+  <div class="rs-item__side">
+    <div class="rs-item__price">${money(it.price * it.qty)}</div>
+  </div>
+`;
 
       itemsEl.appendChild(row);
     });
-
+            // attach qty listeners
+itemsEl.querySelectorAll(".rs-qty").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    const i = Number(e.currentTarget.dataset.i);
+    const action = e.currentTarget.dataset.action;
+    if (action === "inc") cart[i].qty++;
+    if (action === "dec" && cart[i].qty > 1) cart[i].qty--;
+    persist();
+    render();
+  });
+});
     // attach remove listeners
     itemsEl.querySelectorAll(".rs-remove").forEach(btn => {
       btn.addEventListener("click", (e) => removeAt(Number(e.currentTarget.dataset.i)));
@@ -117,6 +136,13 @@ function render() {
   countEl.textContent = cart.length;
   subtotalEl.textContent = money(subtotal);
   totalEl.textContent = money(subtotal + (cart.length ? deliveryFee : 0));
+}
+// Checkout button
+const checkoutBtn = document.getElementById("rs-checkout");
+if (checkoutBtn) {
+  checkoutBtn.addEventListener("click", () => {
+    window.location.href = "checkout.html"; // ✅ send user to checkout
+  });
 }
 
 // ------------------ INIT ------------------

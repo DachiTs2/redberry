@@ -67,35 +67,57 @@ async function loadProduct() {
       <img src="${img}" alt="${product.name}">
     `).join("");
 
-    thumbnails.querySelectorAll("img").forEach(img => {
-      img.addEventListener("click", () => {
-        mainImage.src = img.src;
-      });
-    });
+   thumbnails.querySelectorAll("img").forEach((img, index) => {
+  img.addEventListener("click", () => {
+    // Change the main image
+    mainImage.src = img.src;
+
+    // If the clicked thumbnail corresponds to a color, update selectedColor
+    if (Array.isArray(product.available_colors) && product.available_colors[index]) {
+      selectedColor = product.available_colors[index];
+
+      // Update label
+      if (colorLabel) {
+        colorLabel.textContent = `Color: ${selectedColor}`;
+      }
+
+      // Highlight the correct color button
+      const colorBtns = colorOptions.querySelectorAll(".color-circle");
+      colorBtns.forEach(b => b.classList.remove("active"));
+      if (colorBtns[index]) {
+        colorBtns[index].classList.add("active");
+      }
+    }
+  });
+});
   }
 
-  // ---------- COLORS ----------
-  if (Array.isArray(product.available_colors) && colorOptions) {
-    selectedColor = product.available_colors[0] || null;
+ // -------- COLORS --------
+if (product.available_colors && colorOptions) {
+  colorOptions.innerHTML = product.available_colors.map((c, i) => `
+    <button class="color-circle ${i === 0 ? "active" : ""}" 
+            title="${c}" 
+            style="background:${c.toLowerCase()};"></button>
+  `).join("");
 
-    colorOptions.innerHTML = product.available_colors.map((c, i) => `
-      <button class="color-circle ${i === 0 ? "active" : ""}" 
-              title="${c}" 
-              style="background:${c.toLowerCase()};"></button>
-    `).join("");
+  const colorBtns = colorOptions.querySelectorAll(".color-circle");
 
-    if (colorLabel) colorLabel.textContent = `Color: ${selectedColor ?? "-"}`;
-
-    const colorBtns = colorOptions.querySelectorAll(".color-circle");
-    colorBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        selectedColor = btn.title;
-        if (colorLabel) colorLabel.textContent = `Color: ${selectedColor}`;
-        colorBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-      });
-    });
+  // ✅ select the first color by default
+  if (colorBtns.length > 0) {
+    selectedColor = colorBtns[0].title;
+    colorLabel.textContent = `Color: ${selectedColor}`;
   }
+
+  colorBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedColor = btn.title;
+      colorLabel.textContent = `Color: ${selectedColor}`;
+      colorBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      mainImage.src = product.images[colorBtns.length > 1 ? [...colorBtns].indexOf(btn) : 0] || product.cover_image;
+    });
+  });
+}
 
   // ---------- SIZES ----------
   if (Array.isArray(product.available_sizes) && sizeOptions) {
@@ -119,21 +141,24 @@ async function loadProduct() {
   }
 
   // ---------- ADD TO CART ----------
-  if (addBtn) {
-    addBtn.addEventListener("click", () => {
-      const qty = parseInt(qtySelect?.value, 10) || 1;
-      const imageToUse = mainImage?.src || product.cover_image;
-if (typeof window.addToCart === "function") {
-  window.addToCart(
-    product,
-    selectedColor,
-    selectedSize,
-    qty
-  );
-}
-    });
-  }
-}
+if (addBtn) {
+  addBtn.addEventListener("click", () => {
+    const qty = parseInt(qtySelect?.value, 10) || 1;
+
+    // ✅ use the actual image currently shown
+    const imageToUse = mainImage?.src || product.cover_image;
+
+    if (typeof window.addToCart === "function") {
+      window.addToCart(
+        product,
+        selectedColor,     // ✅ always the chosen color
+        selectedSize,      // ✅ chosen size
+        qty,
+        imageToUse         // ✅ pass selected image too
+      );
+    }
+  });
+} }
 
 // --------- Init ---------
 loadProduct();

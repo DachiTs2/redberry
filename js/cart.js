@@ -1,3 +1,5 @@
+// js/cart.js
+
 const drawer     = document.getElementById("rs-cart");
 const backdrop   = document.getElementById("rs-backdrop");
 const closeBtn   = document.getElementById("rs-cart-close");
@@ -42,7 +44,7 @@ window.addToCart = function addToCart(product, selectedColor, selectedSize, quan
 
 // ------------------ HELPERS ------------------
 function removeAt(index) {
-  cart.splice(index, 1);
+  cart.splice(index, 1); 
   persist();
   render();
 }
@@ -52,7 +54,7 @@ function persist() {
 }
 
 function money(n) {
-  return `$${(Number(n) || 0).toFixed(0)}`;
+  return `$${(Number(n) || 0).toFixed(2)}`;
 }
 
 // ------------------ RENDER ------------------
@@ -62,7 +64,10 @@ function render() {
   if (cart.length === 0) {
     itemsEl.innerHTML = `
       <div class="rs-cart-empty">
-        <img src="assets/shopping-cart.svg" alt="" class="rs-empty-icon">
+         <div class="cart-iicon">
+      <img src="assets/groupcart.png" alt="Cart Outline" class="cart-outline">
+      <img src="assets/groupcart2.png" alt="Cart Pattern" class="cart-fill">
+    </div>
         <div><strong>Ooops!</strong></div>
         <div>You've got nothing in your cart just yet…</div>
         <button id="start-shopping">Start shopping</button>

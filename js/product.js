@@ -81,27 +81,18 @@ async function loadProduct() {
     colorOptions.innerHTML = product.available_colors.map((c, i) => `
       <button class="color-circle ${i === 0 ? "active" : ""}" 
               title="${c}" 
-              style="background:${c.toLowerCase()};"
-              data-index="${i}"></button>
+              style="background:${c.toLowerCase()};"></button>
     `).join("");
 
     if (colorLabel) colorLabel.textContent = `Color: ${selectedColor ?? "-"}`;
 
     const colorBtns = colorOptions.querySelectorAll(".color-circle");
-
-    colorBtns.forEach((btn, index) => {
+    colorBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         selectedColor = btn.title;
         if (colorLabel) colorLabel.textContent = `Color: ${selectedColor}`;
-
-        // Toggle active
         colorBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-
-        // 👉 Switch photo when color is clicked
-        if (product.images[index]) {
-          mainImage.src = product.images[index];
-        }
       });
     });
   }
@@ -116,11 +107,12 @@ async function loadProduct() {
 
     if (sizeLabel) sizeLabel.textContent = `Size: ${selectedSize ?? "-"}`;
 
-    sizeOptions.querySelectorAll(".size-btn").forEach(btn => {
+    const sizeBtns = sizeOptions.querySelectorAll(".size-btn");
+    sizeBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         selectedSize = btn.title;
         if (sizeLabel) sizeLabel.textContent = `Size: ${selectedSize}`;
-        sizeOptions.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+        sizeBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
       });
     });
@@ -131,18 +123,14 @@ async function loadProduct() {
     addBtn.addEventListener("click", () => {
       const qty = parseInt(qtySelect?.value, 10) || 1;
       const imageToUse = mainImage?.src || product.cover_image;
-
-      if (typeof window.addToCart === "function") {
-        window.addToCart({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          cover_image: imageToUse,
-          color: selectedColor,
-          size: selectedSize,
-          qty
-        });
-      }
+if (typeof window.addToCart === "function") {
+  window.addToCart(
+    product,
+    selectedColor,
+    selectedSize,
+    qty
+  );
+}
     });
   }
 }

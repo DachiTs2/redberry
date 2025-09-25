@@ -16,6 +16,10 @@ nav {
     height: 80px;
     padding: 0 100px;
 }
+#logo,
+#logIn {
+  cursor: pointer;
+}
 #logo {
     display: flex;
     align-items: center;
@@ -93,6 +97,8 @@ align-items: center;
   font-size: 16px;
   color: #888;
   margin: 0;
+  z-index: 2;
+  pointer-events: auto;
   
 }
 
@@ -1288,4 +1294,86 @@ align-items: center;
 .checkout-remove:hover {
   color: #333;
   
+}
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon .input-icon {
+  position: absolute;
+  left: 12px;              
+  width: 20px;             
+  height: 20px;
+  pointer-events: none;    
+  opacity: 0.7;            
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 10px 12px 10px 35px !important;
+  font-size: 14px;
+}
+/* ===== Success Page ===== */
+.success-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+
+.success-container {
+  text-align: center;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 24px;
+}
+
+.success-container h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: #10151F;
+  margin-bottom: 18px;
+}
+
+.success-container p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 64px;
+}
+
+.success-btn {
+  background: #FF3C00;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 38px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.success-btn:hover {
+  background: #e23600;
+}
+
+.success-close {
+  position: absolute;
+  top: 120px;
+  right: 120px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.success-close img {
+  width: 30px;
+  height: 30px;
 }

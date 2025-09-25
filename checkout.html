@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Navbar (reuse same) -->
+
 <nav>
   <div id="logo">
     <img id="mainLogo" src="assets/Vector.svg" alt="Brand Logo">
@@ -20,12 +20,12 @@
   </div>
 </nav>
 
-  <!-- Checkout Title -->
+  
   <main class="checkout-page">
     <h1 id="checkout-title">Checkout</h1>
 
     <div class="checkout-grid">
-      <!-- LEFT: Form -->
+      
       <section class="checkout-form">
         <div class="checkout-mini">
         <h3>Order details</h3>
@@ -33,7 +33,14 @@
   <input type="text" placeholder="Name" required>
   <input type="text" placeholder="Surname" required>
 
-  <input type="email" placeholder="Email" required class="wide">
+  <div class="input-with-icon wide">
+  <img src="assets/mail.png" alt="Mail Icon" class="input-icon">
+  <input 
+    type="email" 
+    id="checkout-email" 
+    placeholder="Email" 
+    required>
+</div>
 
   <input type="text" placeholder="Address" required>
   <input type="text" placeholder="Zip code" required>

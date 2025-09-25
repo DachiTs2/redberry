@@ -7,33 +7,23 @@ const avatarInput = document.getElementById("avatarInput");
 const uploadBtn = document.getElementById("uploadBtn");
 const removeBtn = document.getElementById("removeBtn");
 
-// Password toggle setup
-function setupPasswordToggle(inputId, toggleId) {
-  const input = document.getElementById(inputId);
-  const toggle = document.getElementById(toggleId);
 
-  if (input && toggle) {
-    toggle.addEventListener("click", () => {
-      const isPassword = input.type === "password";
-      input.type = isPassword ? "text" : "password";
-      toggle.src = isPassword ? "assets/eye-off.png" : "assets/eye.png";
-    });
-  }
-}
-setupPasswordToggle("password1", "togglePass1");
-setupPasswordToggle("password2", "togglePass2");
 
 // Avatar upload preview
-if (uploadBtn && avatarInput && avatarImg) {
-  uploadBtn.addEventListener("click", () => avatarInput.click());
+if (uploadBtn && avatarInput && avatar) {
+  uploadBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // stops button misbehaving
+    avatarInput.value = ""; 
+    avatarInput.click();
+  });
 
   avatarInput.addEventListener("change", () => {
     const file = avatarInput.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        avatarImg.src = e.target.result;
-        avatarImg.style.display = "block";
+        avatar.src = e.target.result;
+        avatar.style.display = "block";
       };
       reader.readAsDataURL(file);
     }

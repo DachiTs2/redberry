@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.getElementById("btn-filter");
   const filterPanel = document.getElementById("filter-panel");
@@ -42,13 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     icon.addEventListener("click", () => {
       const isPassword = input.type === "password";
       input.type = isPassword ? "text" : "password";
-      icon.src = isPassword ? "assets/eye-off.png" : "assets/eye.png";
     });
   }
 
   togglePassword("password", "togglePassword1");
-  togglePassword("password1", "togglePass1");    
-  togglePassword("password2", "togglePass2");    
+  togglePassword("password1", "togglePass1");
+  togglePassword("password2", "togglePass2");
 
   // --- Avatar Upload ---
   const avatar = document.getElementById("avatar");
@@ -81,14 +79,33 @@ document.addEventListener("DOMContentLoaded", () => {
   if (removeBtn && avatar && avatarInput) {
     removeBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      avatar.src = "assets/avatar.png"; 
+      avatar.src = "assets/avatar.png";
       avatar.style.display = "none";
       avatarInput.value = "";
     });
   }
+
+  // --- Navbar Logo Navigation ---
+  const logo = document.getElementById("logo");
+  if (logo) {
+    logo.addEventListener("click", () => {
+      const token = localStorage.getItem("rs_token"); 
+      if (token) {
+        window.location.href = "main.html"; 
+      } else {
+        window.location.href = "index.html"; 
+      }
+    });
+  }
+
+  // --- Navbar Log In Button ---
+  const logInBtn = document.getElementById("logIn");
+  if (logInBtn) {
+    logInBtn.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  }
 });
-
-
 
 
 

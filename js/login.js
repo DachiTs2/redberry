@@ -29,12 +29,12 @@ if (form) {
     const { ok, status, data } = await api("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: { email, password } // api.js will JSON.stringify automatically
+      body: { email, password } 
     });
 
     if (ok && data?.token) {
       saveToken(data.token);
-      saveUser(data.user); // cleaner than raw localStorage
+      saveUser(data.user); 
       window.location.href = "main.html";
       return;
     }
@@ -51,14 +51,14 @@ if (form) {
     } else {
       alert("Login failed. Please try again.");
     }
+    // Client-side validation
+if (password.length < 3) {
+  if (pwError) {
+    pwError.textContent = "Password must be at least 3 characters.";
+    pwError.hidden = false;
+  }
+  return; // stop form here
+}
   });
 }
 
-// ✅ Password toggle
-if (togglePass && passwordInput) {
-  togglePass.addEventListener("click", () => {
-    const isPassword = passwordInput.type === "password";
-    passwordInput.type = isPassword ? "text" : "password";
-    togglePass.src = isPassword ? "assets/eye-off.png" : "assets/eye.png";
-  });
-}

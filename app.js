@@ -1,10 +1,11 @@
+// app.js
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Filter Panel ---
   const filterBtn = document.getElementById("btn-filter");
   const filterPanel = document.getElementById("filter-panel");
   const sortBtn = document.getElementById("sort");
   const sortPanel = document.getElementById("sort-panel");
 
-  // --- Filter Panel ---
   if (filterBtn && filterPanel) {
     filterBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -13,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Sort Panel ---
   if (sortBtn && sortPanel) {
     sortBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -22,11 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Prevent closing when clicking inside
   if (filterPanel) filterPanel.addEventListener("click", (e) => e.stopPropagation());
   if (sortPanel) sortPanel.addEventListener("click", (e) => e.stopPropagation());
 
-  // Close when clicking outside
   document.addEventListener("click", () => {
     if (filterPanel) filterPanel.hidden = true;
     if (sortPanel) sortPanel.hidden = true;
@@ -38,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const icon = document.getElementById(iconId);
     if (!input || !icon) return;
 
+    icon.style.cursor = "pointer";
     icon.addEventListener("click", () => {
       const isPassword = input.type === "password";
       input.type = isPassword ? "text" : "password";
@@ -48,64 +47,48 @@ document.addEventListener("DOMContentLoaded", () => {
   togglePassword("password1", "togglePass1");
   togglePassword("password2", "togglePass2");
 
-  // --- Avatar Upload ---
-  const avatar = document.getElementById("avatar");
-  const avatarInput = document.getElementById("avatarInput");
-  const uploadBtn = document.getElementById("uploadBtn");
-  const removeBtn = document.getElementById("removeBtn");
 
-  if (avatar) avatar.style.display = "none";
-
-  if (uploadBtn && avatarInput && avatar) {
-    uploadBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      avatarInput.value = "";
-      avatarInput.click();
-    });
-
-    avatarInput.addEventListener("change", () => {
-      const file = avatarInput.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          avatar.src = e.target.result;
-          avatar.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-
-  if (removeBtn && avatar && avatarInput) {
-    removeBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      avatar.src = "assets/avatar.png";
-      avatar.style.display = "none";
-      avatarInput.value = "";
-    });
-  }
-
-  // --- Navbar Logo Navigation ---
+  // --- Navbar Logo Navigation (always go to products) ---
   const logo = document.getElementById("logo");
   if (logo) {
+    logo.style.cursor = "pointer";
     logo.addEventListener("click", () => {
-      const token = localStorage.getItem("rs_token"); 
-      if (token) {
-        window.location.href = "main.html"; 
-      } else {
-        window.location.href = "index.html"; 
-      }
+      window.location.href = "main.html"; 
     });
   }
 
-  // --- Navbar Log In Button ---
-  const logInBtn = document.getElementById("logIn");
-  if (logInBtn) {
-    logInBtn.addEventListener("click", () => {
-      window.location.href = "index.html";
-    });
-  }
+// --- Navbar Log In Button ---
+// products page button
+const navLogin = document.getElementById("nav-login");
+// login/registration page button
+const logInAlt = document.getElementById("logIn");
+
+if (navLogin) {
+  navLogin.style.cursor = "pointer";
+  navLogin.addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+}
+
+if (logInAlt) {
+  logInAlt.style.cursor = "pointer";
+  logInAlt.addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+}
+
+
+// --- Navbar Dynamic Visibility ---
+const token = localStorage.getItem("authToken"); // use your correct key
+const navCart = document.getElementById("nav-cart");
+
+if (token) {
+  // Logged in → show cart + user menu
+  if (navLogin) navLogin.style.display = "none";
+  if (navCart) navCart.style.display = "flex";
+} else {
+  // Guest → show only login
+  if (navLogin) navLogin.style.display = "flex";
+  if (navCart) navCart.style.display = "none";
+}
 });
-
-
-

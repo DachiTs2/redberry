@@ -1,11 +1,6 @@
 // js/products.js
 import { api, getToken, clearToken } from "./api.js";
 
-// ---------- Guard ----------
-if (!getToken()) {
-  window.location.href = "index.html";
-}
-
 // ---------- Navbar User + Logout ----------
 const navRight = document.getElementById("nav-right");
 const storedUser = localStorage.getItem("user");
@@ -118,20 +113,62 @@ productsContainer.querySelectorAll(".product-card").forEach(card => {
 function renderPagination(meta, filters = {}) {
   paginationEl.innerHTML = "";
 
-  for (let p = 1; p <= meta.last_page; p++) {
+  const total = meta.last_page;
+  const current = meta.current_page;
+
+  // helper to create page buttons
+  function makeBtn(page, text = page, disabled = false) {
     const btn = document.createElement("button");
     btn.className = "page-btn";
-    if (p === meta.current_page) btn.classList.add("active");
-    btn.textContent = p;
-
+    if (page === current) btn.classList.add("active");
+    if (disabled) btn.disabled = true;
+    btn.textContent = text;
     btn.addEventListener("click", () => {
-      loadProducts(p, filters);
-      productsContainer.scrollIntoView({ behavior: "smooth" });
+      if (!disabled) {
+        loadProducts(page, filters);
+        productsContainer.scrollIntoView({
+           behavior: "smooth"
+           });
+      }
     });
-
     paginationEl.appendChild(btn);
   }
+
+  
+  makeBtn(current - 1, "‹", current === 1);
+
+ 
+  makeBtn(1);
+
+  
+  if (current > 3) {
+    const span = document.createElement("span");
+    span.className = "dots";
+    span.textContent = "...";
+    paginationEl.appendChild(span);
+  }
+
+ 
+  for (let p = current - 1; p <= current + 1; p++) {
+    if (p > 1 && p < total) {
+      makeBtn(p);
+    }
+  }
+
+  
+  if (current < total - 2) {
+    const span = document.createElement("span");
+    span.className = "dots";
+    span.textContent = "...";
+    paginationEl.appendChild(span);
+  }
+
+ 
+  if (total > 1) makeBtn(total);
+
+  makeBtn(current + 1, "›", current === total);
 }
+
 // ---------- Filter ----------
 const applyFilterBtn = document.getElementById("apply-filter");
 

@@ -92,10 +92,12 @@ if (payBtn && checkoutForm) {
       }
     });
 
-    if (!allFilled) {
-      alert("Please fill in all required fields.");
-      return;
-    }
+   if (!allFilled) {
+  document.getElementById("checkout-error").hidden = false;
+  return;
+} else {
+  document.getElementById("checkout-error").hidden = true;
+}
 
     // ✅ If valid
     localStorage.removeItem("rs_cart");

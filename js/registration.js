@@ -10,31 +10,56 @@ const removeBtn = document.getElementById("removeBtn");
 
 
 // Avatar upload preview
-if (uploadBtn && avatarInput && avatar) {
+if (uploadBtn && avatarInput && avatarImg && removeBtn) {
   uploadBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // stops button misbehaving
-    avatarInput.value = ""; 
+    e.preventDefault();
     avatarInput.click();
   });
 
   avatarInput.addEventListener("change", () => {
     const file = avatarInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        avatar.src = e.target.result;
-        avatar.style.display = "block";
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    // ✅ Validate type
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload a valid image file (jpg, png, etc.)");
+      avatarInput.value = "";
+      return;
     }
+
+    // ✅ Validate size
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert("Image must be smaller than 2 MB");
+      avatarInput.value = "";
+      return;
+    }
+
+    // ✅ Preview image
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      avatarImg.src = e.target.result;
+      avatarImg.style.display = "block";
+
+      // 🔑 Toggle buttons
+      uploadBtn.style.display = "none";
+      removeBtn.style.display = "inline-block";
+    };
+    reader.readAsDataURL(file);
   });
 }
 
-if (removeBtn && avatarImg && avatarInput) {
-  removeBtn.addEventListener("click", () => {
+// Remove button
+if (removeBtn && avatarImg && avatarInput && uploadBtn) {
+  removeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     avatarImg.src = "assets/avatar.png";
     avatarImg.style.display = "none";
-    avatarInput.value = ""; 
+    avatarInput.value = "";
+
+    // 🔑 Toggle buttons back
+    removeBtn.style.display = "none";
+    uploadBtn.style.display = "inline-flex";
   });
 }
 
@@ -116,6 +141,7 @@ if (form) {
         }
       });
     } else {
+      console.error("Registration failed", status, data);
       alert("Registration failed. Please try again.");
     }
   });

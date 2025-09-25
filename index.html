@@ -24,19 +24,20 @@
         <img id="mainPhoto" src="assets/Rectangle 10.svg" alt="">
         <div id="login-container">
             <h2 id="login-title">Log in</h2>
-            <form id="login-form">
+            <form id="login-form" novalidate>
     <!-- email / username -->
-    <div class="input-group">
-      <input type="text"
-       id="username"
-        name="username"
-         placeholder="Email or username *"
-          required 
-           aria-describedby="email-error">
-    </div>
-    <p id="email-error" class="error" hidden>
-    Invalid email address. Please try again.
-  </p>
+ 
+<div class="input-group">
+  <input type="email"
+    id="login-email"
+    name="email"
+    placeholder="Email *"
+    required
+    aria-describedby="email-error">
+</div>
+<p id="email-error" class="error" hidden>
+  Please enter a valid email address.
+</p>
      <!-- password with eye icon -->
     <div class="input-group2">
       <input type="password"

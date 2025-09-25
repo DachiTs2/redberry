@@ -27,38 +27,55 @@
 
   <div id="avatar-row">
     <img id="avatar" src="" alt="User avatar" style="display:none;">
-    <div>
-        <input type="file" id="avatarInput" accept="image/*" hidden>
-      <button type="button" class="link-btn" id="uploadBtn">Upload new</button>
-      <button  type="button" class="link-btn" id="removeBtn">Remove</button>
-    </div>
+    <div class="upload-wrapper">
+    <input type="file" id="avatarInput" accept="image/*" hidden>
+
+    
+    <button type="button" class="upload-btn" id="uploadBtn">
+      <span class="icon-circle">
+            <img src="assets/upload.png" alt="Upload" />
+
+      </span>
+      <span>Upload image</span>
+    </button>
+
+    
+    <button type="button" class="link-btn" id="removeBtn" style="display:none;">
+      Remove
+    </button>
   </div>
-<form id="registration-form">
+</div>
+<form id="registration-form" novalidate>
   
     <input type="text" id="reg-username" placeholder="Username *" required>
     <p id="username-error" class="error" hidden>Username must be at least 3 characters.</p>
     <input type="text" id="reg-email" placeholder="Email *" required>
     <p id="email-error" class="error" hidden>Invalid email format.</p>
-    <div class="input-wrapper">
-      <input type="password"
-       id="password1" 
-        name="password"
-         placeholder="Password *"
-          required
-           aria-describedby="pw-error">
-      <img id="togglePass1" src="assets/eye.png" alt="">
-      <p id="pw-error" class="error" hidden>Password must be at least 3 characters.</p>
-      </div>
-    <div class="input-wrapper">
+ <div class="input-wrapper">
+  <div class="input-field">
     <input type="password"
-       id="password2" 
-        name="password"
-         placeholder="Confirm password *"
-          required
-           aria-describedby="pw-error">
-      <img id="togglePass2" src="assets/eye.png" alt="">
-      <p id="confirm-error" class="error" hidden>Passwords do not match.</p>
-      </div>
+      id="password1" 
+      name="password"
+      placeholder="Password *"
+      required
+      aria-describedby="pw-error">
+    <img id="togglePass1" src="assets/eye.png" alt="">
+  </div>
+  <p id="pw-error" class="error" hidden>Password must be at least 3 characters.</p>
+</div>
+
+<div class="input-wrapper">
+  <div class="input-field">
+    <input type="password"
+      id="password2" 
+      name="password"
+      placeholder="Confirm password *"
+      required
+      aria-describedby="confirm-error">
+    <img id="togglePass2" src="assets/eye.png" alt="">
+  </div>
+  <p id="confirm-error" class="error" hidden>Passwords do not match.</p>
+</div>
 
     <button type="submit" id="btn-register">Register</button>
 

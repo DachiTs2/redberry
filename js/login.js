@@ -15,11 +15,9 @@ if (form) {
     const emailError = document.getElementById("email-error");
     const pwError = document.getElementById("pw-error");
 
-    // Reset errors
     emailError.hidden = true;
     pwError.hidden = true;
 
-    // Client-side validation
     let valid = true;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
@@ -36,7 +34,6 @@ if (form) {
 
     if (!valid) return;
 
-    // Call API
     const { ok, status, data } = await api("/login", {
       method: "POST",
       body: { email, password }
@@ -49,7 +46,7 @@ if (form) {
       return;
     }
 
-    // Handle errors
+  
     if (status === 401) {
       pwError.textContent = "Invalid email or password.";
       pwError.hidden = false;
@@ -59,7 +56,6 @@ if (form) {
   });
 }
 
-// Password toggle
 if (togglePass && passwordInput) {
   togglePass.style.cursor = "pointer";
   togglePass.addEventListener("click", () => {

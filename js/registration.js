@@ -7,9 +7,6 @@ const avatarInput = document.getElementById("avatarInput");
 const uploadBtn = document.getElementById("uploadBtn");
 const removeBtn = document.getElementById("removeBtn");
 
-
-
-// Avatar upload preview
 if (uploadBtn && avatarInput && avatarImg && removeBtn) {
   uploadBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -20,14 +17,11 @@ if (uploadBtn && avatarInput && avatarImg && removeBtn) {
     const file = avatarInput.files[0];
     if (!file) return;
 
-    // ✅ Validate type
     if (!file.type.startsWith("image/")) {
       alert("Please upload a valid image file (jpg, png, etc.)");
       avatarInput.value = "";
       return;
     }
-
-    // ✅ Validate size
     const maxSize = 2 * 1024 * 1024;
     if (file.size > maxSize) {
       alert("Image must be smaller than 2 MB");
@@ -35,13 +29,13 @@ if (uploadBtn && avatarInput && avatarImg && removeBtn) {
       return;
     }
 
-    // ✅ Preview image
+    
     const reader = new FileReader();
     reader.onload = (e) => {
       avatarImg.src = e.target.result;
       avatarImg.style.display = "block";
 
-      // 🔑 Toggle buttons
+      
       uploadBtn.style.display = "none";
       removeBtn.style.display = "inline-block";
     };
@@ -49,7 +43,7 @@ if (uploadBtn && avatarInput && avatarImg && removeBtn) {
   });
 }
 
-// Remove button
+
 if (removeBtn && avatarImg && avatarInput && uploadBtn) {
   removeBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -57,7 +51,6 @@ if (removeBtn && avatarImg && avatarInput && uploadBtn) {
     avatarImg.style.display = "none";
     avatarInput.value = "";
 
-    // 🔑 Toggle buttons back
     removeBtn.style.display = "none";
     uploadBtn.style.display = "inline-flex";
   });
@@ -67,7 +60,7 @@ if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Grab fields
+
     const usernameEl = document.getElementById("reg-username");
     const emailEl = document.getElementById("reg-email");
     const password1El = document.getElementById("password1");
@@ -79,7 +72,6 @@ if (form) {
     const pwError = document.getElementById("pw-error");
     const confirmError = document.getElementById("confirm-error");
 
-    // --- Local validation ---
     let valid = true;
 
     if (usernameEl.value.trim().length < 3) {
@@ -105,7 +97,6 @@ if (form) {
 
     if (!valid) return;
 
-    // --- Build FormData ---
     const fd = new FormData();
     fd.append("username", usernameEl.value.trim());
     fd.append("email", emailEl.value.trim());
@@ -113,7 +104,7 @@ if (form) {
     fd.append("password_confirmation", password2El.value.trim());
     if (avatarFile) fd.append("avatar", avatarFile);
 
-    // --- Send to API ---
+
     const { ok, status, data } = await api("/register", {
       method: "POST",
       body: fd
@@ -126,7 +117,6 @@ if (form) {
       return;
     }
 
-    // --- Handle API errors ---
     if (status === 422 && data?.errors) {
       Object.entries(data.errors).forEach(([field, msg]) => {
         const el = document.getElementById(

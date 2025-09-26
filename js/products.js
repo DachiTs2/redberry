@@ -1,7 +1,5 @@
-// js/products.js
 import { api, getToken, clearToken } from "./api.js";
 
-// ---------- Navbar User + Logout ----------
 const navRight = document.getElementById("nav-right");
 const storedUser = localStorage.getItem("user");
 
@@ -23,7 +21,7 @@ userMenu.innerHTML = `
 `;
 navRight.appendChild(userMenu);
 
-  // Dropdown menu
+  
   const dropdown = document.createElement("div");
   dropdown.id = "dropdown-menu";
   dropdown.style.cssText = `
@@ -51,19 +49,17 @@ navRight.appendChild(userMenu);
   });
 }
 
-// ---------- Containers ----------
 const productsContainer = document.querySelector(".full-containers");
 const paginationEl = document.getElementById("pagination");
 
-// ---------- Load Products ----------
+
 async function loadProducts(page = 1, filters = {}) {
   const params = new URLSearchParams({ page });
 
-  // price filters
   if (filters.min_price) params.append("filter[price_from]", filters.min_price);
   if (filters.max_price) params.append("filter[price_to]", filters.max_price);
 
-  //  sorting
+  
   if (filters.sort) {
     const sortValue = filters.order === "desc" ? `-${filters.sort}` : filters.sort;
     params.append("sort", sortValue);
@@ -76,13 +72,11 @@ async function loadProducts(page = 1, filters = {}) {
     return;
   }
 
-  //  Update results info
   const resultsInfo = document.getElementById("results-info");
   if (resultsInfo) {
     resultsInfo.textContent = `Showing ${data.meta.from}–${data.meta.to} of ${data.meta.total} products`;
   }
 
-  //  Render products
   const products = data.data;
   productsContainer.innerHTML = products.map(p => `
     <div class="product-card" data-id="${p.id}">
@@ -93,15 +87,14 @@ async function loadProducts(page = 1, filters = {}) {
   `).join("");
 
 
-  //  Click → product page
 productsContainer.querySelectorAll(".product-card").forEach(card => {
   card.addEventListener("click", () => {
     const productId = card.dataset.id;
 
-    // add a short delay so the animation is visible
+    
     setTimeout(() => {
       window.location.href = `product.html?id=${productId}`;
-    }, 150); // 150ms matches the CSS transition
+    }, 150); 
   });
 });
 
@@ -109,14 +102,13 @@ productsContainer.querySelectorAll(".product-card").forEach(card => {
   renderPagination(data.meta, filters);
 }
 
-// ---------- Render Pagination ----------
+
 function renderPagination(meta, filters = {}) {
   paginationEl.innerHTML = "";
 
   const total = meta.last_page;
   const current = meta.current_page;
 
-  // helper to create page buttons
   function makeBtn(page, text = page, disabled = false) {
     const btn = document.createElement("button");
     btn.className = "page-btn";
@@ -136,10 +128,8 @@ function renderPagination(meta, filters = {}) {
 
   
   makeBtn(current - 1, "‹", current === 1);
-
  
   makeBtn(1);
-
   
   if (current > 3) {
     const span = document.createElement("span");
@@ -154,7 +144,6 @@ function renderPagination(meta, filters = {}) {
       makeBtn(p);
     }
   }
-
   
   if (current < total - 2) {
     const span = document.createElement("span");
@@ -162,14 +151,12 @@ function renderPagination(meta, filters = {}) {
     span.textContent = "...";
     paginationEl.appendChild(span);
   }
-
  
   if (total > 1) makeBtn(total);
 
   makeBtn(current + 1, "›", current === total);
 }
 
-// ---------- Filter ----------
 const applyFilterBtn = document.getElementById("apply-filter");
 
 if (applyFilterBtn) {
@@ -185,7 +172,7 @@ if (applyFilterBtn) {
     if (filterPanel) filterPanel.hidden = true;
   });
 }
-// ---------- Sort ----------
+
 document.querySelectorAll(".sort-option").forEach(btn => {
   btn.addEventListener("click", () => {
     const sort = btn.dataset.sort;
@@ -196,6 +183,4 @@ document.querySelectorAll(".sort-option").forEach(btn => {
     if (sortPanel) sortPanel.hidden = true;
   });
 });
-
-// ---------- Init ----------
 loadProducts();

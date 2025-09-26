@@ -1,19 +1,13 @@
-// js/checkout.js
-
-// Elements
 const checkoutItemsEl = document.getElementById("summary-items");
 const subtotalEl = document.getElementById("sum-subtotal");
 const deliveryEl = document.getElementById("sum-delivery"); 
 const totalEl = document.getElementById("sum-total");
 const payBtn = document.getElementById("btn-pay");
 
-// Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem("rs_cart") || "[]");
 
-// Delivery fee (same as cart.js)
 const deliveryFee = 5;
 
-// Render checkout summary
 function renderCheckout() {
   if (!cart || cart.length === 0) {
     checkoutItemsEl.innerHTML = "<p>Your cart is empty.</p>";
@@ -46,13 +40,12 @@ function renderCheckout() {
     checkoutItemsEl.appendChild(row);
   });
 
-  // Totals
+  
   const subtotal = cart.reduce((s, it) => s + it.price * it.qty, 0);
   subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
   deliveryEl.textContent = `$${deliveryFee.toFixed(2)}`;
   totalEl.textContent = `$${(subtotal + deliveryFee).toFixed(2)}`;
-
-  // Remove listeners
+ 
   checkoutItemsEl.querySelectorAll(".checkout-remove").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const i = Number(e.currentTarget.dataset.i);
@@ -63,14 +56,13 @@ function renderCheckout() {
   });
 }
 
-// Init
+
 renderCheckout();
 
-// -------- Validation & Pay --------
+
 const checkoutForm = document.getElementById("checkout-form");
 const emailInput = document.getElementById("checkout-email");
 
-// ✅ Pre-fill email if user exists
 const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
 if (storedUser?.email && emailInput) {
   emailInput.value = storedUser.email;
@@ -98,8 +90,6 @@ if (payBtn && checkoutForm) {
 } else {
   document.getElementById("checkout-error").hidden = true;
 }
-
-    // ✅ If valid
     localStorage.removeItem("rs_cart");
     window.location.href = "success.html";
   });

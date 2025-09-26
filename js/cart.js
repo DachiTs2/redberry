@@ -12,7 +12,6 @@ const footerEl   = document.querySelector(".rs-cart__footer");
 const deliveryFee = 5;
 let cart = JSON.parse(localStorage.getItem("rs_cart") || "[]");
 
-// ------------------ CART OPEN/CLOSE ------------------
 function openCart() {
   drawer.classList.add("open");
   backdrop.classList.add("open");
@@ -26,7 +25,6 @@ document.querySelectorAll(".icon-btn").forEach(btn => btn.addEventListener("clic
 closeBtn.addEventListener("click", closeCart);
 backdrop.addEventListener("click", closeCart);
 
-// ------------------ ADD TO CART ------------------
 window.addToCart = function addToCart(product, selectedColor, selectedSize, quantity = 1, imageToUse) {
   cart.push({
     id: product.id,
@@ -42,7 +40,7 @@ window.addToCart = function addToCart(product, selectedColor, selectedSize, quan
   openCart();
 };
 
-// ------------------ HELPERS ------------------
+
 function removeAt(index) {
   cart.splice(index, 1); 
   persist();
@@ -57,7 +55,6 @@ function money(n) {
   return `$${(Number(n) || 0).toFixed(2)}`;
 }
 
-// ------------------ RENDER ------------------
 function render() {
   itemsEl.innerHTML = "";
 
@@ -112,7 +109,7 @@ function render() {
 
       itemsEl.appendChild(row);
     });
-            // attach qty listeners
+
 itemsEl.querySelectorAll(".rs-qty").forEach(btn => {
   btn.addEventListener("click", (e) => {
     const i = Number(e.currentTarget.dataset.i);
@@ -123,7 +120,7 @@ itemsEl.querySelectorAll(".rs-qty").forEach(btn => {
     render();
   });
 });
-    // attach remove listeners
+    
     itemsEl.querySelectorAll(".rs-remove").forEach(btn => {
       btn.addEventListener("click", (e) => removeAt(Number(e.currentTarget.dataset.i)));
     });
@@ -131,20 +128,19 @@ itemsEl.querySelectorAll(".rs-qty").forEach(btn => {
     footerEl.style.display = "block";
   }
 
-  // totals
   const subtotal = cart.reduce((s, it) => s + (Number(it.price) * (it.qty || 1)), 0);
   countEl.textContent = cart.length;
   subtotalEl.textContent = money(subtotal);
   totalEl.textContent = money(subtotal + (cart.length ? deliveryFee : 0));
 }
-// Checkout button
+
 const checkoutBtn = document.getElementById("rs-checkout");
 if (checkoutBtn) {
   checkoutBtn.addEventListener("click", () => {
-    window.location.href = "checkout.html"; // ✅ send user to checkout
+    window.location.href = "checkout.html"; 
   });
 }
 
-// ------------------ INIT ------------------
+
 render();
 

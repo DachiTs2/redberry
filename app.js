@@ -1,6 +1,5 @@
-// app.js
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Filter Panel ---
+
   const filterBtn = document.getElementById("btn-filter");
   const filterPanel = document.getElementById("filter-panel");
   const sortBtn = document.getElementById("sort");
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sortPanel) sortPanel.hidden = true;
   });
 
-  // --- Password Toggle ---
+
   function togglePassword(inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon = document.getElementById(iconId);
@@ -48,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   togglePassword("password2", "togglePass2");
 
 
-  // --- Navbar Logo Navigation (always go to products) ---
   const logo = document.getElementById("logo");
   if (logo) {
     logo.style.cursor = "pointer";
@@ -57,10 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-// --- Navbar Log In Button ---
-// products page button
+
 const navLogin = document.getElementById("nav-login");
-// login/registration page button
 const logInAlt = document.getElementById("logIn");
 
 if (navLogin) {
@@ -77,17 +73,13 @@ if (logInAlt) {
   });
 }
 
-
-// --- Navbar Dynamic Visibility ---
-const token = localStorage.getItem("authToken"); // use your correct key
+const token = localStorage.getItem("authToken"); 
 const navCart = document.getElementById("nav-cart");
 
 if (token) {
-  // Logged in → show cart + user menu
   if (navLogin) navLogin.style.display = "none";
   if (navCart) navCart.style.display = "flex";
 } else {
-  // Guest → show only login
   if (navLogin) navLogin.style.display = "flex";
   if (navCart) navCart.style.display = "none";
 }
